@@ -1,8 +1,10 @@
 # water-quality-logger
-log ph + nitrate levels from river
+logging ph + nitrate levels from river Medway
 
-measured river Medway in Kent, checking farmland tributaries.
-checking for ph and nitrate, indicates industrial runoff + agriculture use + contamination/pollution etc.
-agricultural chemicals and fertiliser were my main priorities, seeing if farms were contamination water ways and damaging Kentish quatic life through eutrophication etc.
+I measured river Medway in Kent, focusing on farmland tributaries.
 
-recreated file from prev. project which includes arduino uno r3.
+Checking for PH and Nitrate levels, this indicates industrial runoff, agriculture use, contamination/pollution etc.
+
+Searching for impacts of agricultural chemicals & fertiliser were my priority, e.g. through PH and Nitrate. These can damage Kentish aquatic life through etrophication etc.
+
+Recreated from prev. project file, included arduino uno r3.
