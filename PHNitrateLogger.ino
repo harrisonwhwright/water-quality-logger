@@ -145,19 +145,60 @@ void takeReading() {
 }
 
 void logError(String message) {
+    File errorFile = SD.open("error.log", FILE_WRITE);
+
+    if (errorFile) {
+        DateTime now = rtc.now();
+        errorFile.print(now.timestamp(DateTime::TIMESTAMP_FULL));
+        errorFile.print(", ");
+        errorFile.println(message);
+        errorFile.close();
+    }
 }
 
 void createFileIfNotExists(String filename) {
+    if (!SD.exists(filename)) {
+        File f = SD.open(filename, FILE_WRITE);
+        if (f) {
+            f.println("Time,PH,Nitrate,BatteryV");
+            f.close();
+        } else {
+            logError("create file fail");
+        }
+    }
 }
 
 void writeData(String data) {
+    String filename = getDateString() + ".csv";
+    File dataFile = SD.open(filename, FILE_WRITE);
+
+    if (dataFile) {
+        dataFile.println(data);
+        dataFile.close();
+    } else {
+        logError("fail to write data");
+    }
 }
 
 String getDateString() {
+    DateTime now = rtc.now();
+    char dateStr[11];
+    sprintf(dateStr, "%02d-%02d-%04d", now.day(), now.month(), now.year());
+
+    return String(dateStr);
 }
 
 String getTimeString() {
+    DateTime now = rtc.now();
+    char timeStr[9];
+    sprintf(timeStr, "%02d:%02d:%02d", now.hour(), now.minute(), now.second());
+
+    return String(timeStr);
 }
 
 float readBatteryVoltage() {
+    int sensorValue = analogRead(BATTERY_MONITOR_PIN);
+    float voltage = sensorValue * (5.0 / 1023.0);
+
+    return voltage * VOLTAGE_DIVIDER_RATIO;
 }
